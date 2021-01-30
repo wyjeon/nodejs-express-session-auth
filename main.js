@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(compression());
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: "agagag",
     resave: false,
     saveUninitialized: true,
     store: new FileStore(),

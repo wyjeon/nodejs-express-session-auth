@@ -20,7 +20,7 @@ router.get("/login", function (request, response) {
     list,
     `
     <form action="/auth/login_process" method="post">
-      <p><input type="email" name="email" placeholder="email"></p>
+      <p><input type="text" name="email" placeholder="email"></p>
       <p><input type="password" name="pwd" placeholder="password"></p>
       <p>
         <input type="submit" value="login">
@@ -43,6 +43,12 @@ router.post("/login_process", function (request, response) {
   } else {
     response.send("Who?");
   }
+});
+
+router.get("/logout", function (request, response) {
+  request.session.destroy(function (err) {
+    response.redirect(`/`);
+  });
 });
 
 module.exports = router;
