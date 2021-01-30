@@ -6,8 +6,6 @@ var bodyParser = require("body-parser");
 var compression = require("compression");
 var helmet = require("helmet");
 app.use(helmet());
-var indexRouter = require("./routes/index");
-var topicRouter = require("./routes/topic");
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,9 +16,15 @@ app.get("*", function (request, response, next) {
     next();
   });
 });
+
+var indexRouter = require("./routes/index");
+var topicRouter = require("./routes/topic");
+var authRouter = require("./routes/auth");
+
 //Router
 app.use("/", indexRouter);
 app.use("/topic", topicRouter);
+app.use("/auth", authRouter);
 
 app.use(function (req, res, next) {
   res.status(404).send("Sorry cant find that!");
