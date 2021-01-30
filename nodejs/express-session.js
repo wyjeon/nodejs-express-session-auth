@@ -7,31 +7,13 @@ var app = express();
 app.use(
   session({
     secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: true,
+    resave: false, // 세션데이터가 바뀌기 전 까지 세션데이터를 저장하지 않는다.
+    saveUninitialized: true, // 세션 필요하기 전 까지 세션을 구동하지 않는다.
   })
 );
 
-app.use(function (req, res, next) {
-  if (!req.session.views) {
-    req.session.views = {};
-  }
-
-  // get the url pathname
-  var pathname = parseurl(req).pathname;
-
-  // count the views
-  req.session.views[pathname] = (req.session.views[pathname] || 0) + 1;
-
-  next();
-});
-
-app.get("/foo", function (req, res, next) {
-  res.send("you viewed this page " + req.session.views["/foo"] + " times");
-});
-
-app.get("/bar", function (req, res, next) {
-  res.send("you viewed this page " + req.session.views["/bar"] + " times");
+app.get("/", function (req, res, next) {
+  res.send("Hello session");
 });
 
 app.listen(3000, function () {
